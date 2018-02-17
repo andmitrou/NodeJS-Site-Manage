@@ -217,5 +217,10 @@ namespace NodeJsSiteManager.Views
             OpenSiteOnBrowser();
             e.Handled = true;
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
+        }
     }
 }

@@ -85,7 +85,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,20,0,0">
                 <Button Name="btnCreateSite" Width="120" Height="30" Margin="10,0,0,0" Click="btnSaveChanges_Click">Save</Button>
-                <Button Name="btnCandelCreateSite" Width="120"  Height="30" Margin="10,0,0,0">Cancel</Button>
+                <Button Name="btnCandelCreateSite" Width="120"  Height="30" Margin="10,0,0,0" Click="btnCancel_Click">Cancel</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
                 <Label Foreground="Red" Name="ErrorMessage" HorizontalAlignment="Stretch" Visibility="Hidden" ></Label>
@@ -121,13 +121,6 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <!--<ListBox Height="340" Width="300" Name="ExtensionsListBox" ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding Path=IsChecked}" Content="{Binding Path=Text}" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>-->
             </StackPanel>
         </StackPanel>
         <StackPanel  Grid.Row="0" Grid.ColumnSpan="2" Margin="364,0,0,0" >
