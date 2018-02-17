@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Name": "MongoDb Driver",
+    "NPMName": "mongodb"
+  },
+  {
+    "Name": "EJS Template Engine",
+    "NPMName": "ejs"
+  }
+]

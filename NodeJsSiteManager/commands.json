@@ -1,0 +1,48 @@
+﻿[
+  {
+    "CmdName": "NPMInit",
+    "CmdDefaultParameters": ["-y"],
+    "CmdText": "npm init {parameters}"
+  },
+  {
+    "CmdName": "NPMInstallPackage",
+    "CmdDefaultParameters": [ ],
+    "CmdText": "npm install {parameters}"
+  },
+   {
+    "CmdName": "NPMUnInstallPackage",
+    "CmdDefaultParameters": [],
+    "CmdText": "npm uninstall {parameters}"
+  },
+  {
+    "CmdName": "CmdCreateEmptyFile",
+    "CmdDefaultParameters": [],
+    "CmdText": "type NUL > {parameters}"
+  },
+  {
+    "CmdName": "CmdCreateDirectory",
+    "CmdDefaultParameters": [ ],
+    "CmdText": "mkdir {parameters}"
+  },
+  {
+    "CmdName": "CmdChangeDirectory",
+    "CmdDefaultParameters": [ ],
+    "CmdText": "cd {parameters}"
+  },
+  {
+    "CmdName": "CmdKillTask",
+    "CmdDefaultParameters": [ ],
+    "CmdText": "taskkill {parameters}"
+  },
+  {
+    "CmdName": "NodeStartWebSite",
+    "CmdDefaultParameters": [ ],
+    "CmdText": "node {parameters}"
+  },
+   {
+    "CmdName": "CmdGetProcess",
+    "CmdDefaultParameters": ["-aon"],
+    "CmdText": "netstat {parameters}"
+  }
+  
+]

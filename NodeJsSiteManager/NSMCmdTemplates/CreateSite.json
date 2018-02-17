@@ -1,0 +1,22 @@
+﻿[
+  {
+    "CommandKeyName": "NPMInit",
+    "Parameters": [],
+    "CommandOrder": 1
+  },
+  {
+    "CommandKeyName": "NPMInstallPackage",
+    "Parameters": [ "--save express" ],
+    "CommandOrder": 2
+  },
+  {
+    "CommandKeyName": "NPMInstallPackage",
+    "Parameters": ["nodemon --save"],
+    "CommandOrder": 3
+  },
+  {
+    "CommandKeyName": "CmdCreateDirectory",
+    "Parameters": ["public"],
+    "CommandOrder": 4
+  },
+]
