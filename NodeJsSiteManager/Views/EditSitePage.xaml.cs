@@ -29,6 +29,10 @@ namespace NodeJsSiteManager.Views
 
     public partial class EditSitePage : Page
     {
+        public delegate void SitesUpdatedEventHandler(object sender, EventArgs e);
+
+        public event SitesUpdatedEventHandler SitesUpdated;
+
         private bool SiteIsRunning = false;
         private Site _site;
         private ExtensionsManager extensionsManager;
@@ -43,6 +47,14 @@ namespace NodeJsSiteManager.Views
             this.txtWebLocation.Content = _site.SiteLocation;
             this.txtPort.Text = _site.SitePort.ToString();
             extensionsManager = new ExtensionsManager(_site);
+        }
+
+        protected virtual void OnSitesUpdated(EventArgs e)
+        {
+            if (SitesUpdated != null)
+            {
+                SitesUpdated(this, e);
+            }
         }
 
         private void LoadExtensions()
@@ -79,8 +91,6 @@ namespace NodeJsSiteManager.Views
 
         private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            var siteManager = new NodeJsSiteManager.Modules.SiteManager();
-
             bool sitePropertiesChanged = false;
 
             if (!this.SiteIsRunning)
@@ -88,7 +98,7 @@ namespace NodeJsSiteManager.Views
                 if (this._site.SiteName != this.txtSiteName.Text)
                 {
                     sitePropertiesChanged = true;
-                    siteManager.RenameSiteDirectory(System.IO.Path.Combine(_site.SiteLocation, _site.SiteName), 
+                    App.siteManager.RenameSiteDirectory(System.IO.Path.Combine(_site.SiteLocation, _site.SiteName), 
                                                                             this.txtSiteName.Text);
                     _site.SiteName = this.txtSiteName.Text;
                 }
@@ -97,14 +107,15 @@ namespace NodeJsSiteManager.Views
                 {
                     sitePropertiesChanged = true;
                     int newPort = Int32.Parse(this.txtPort.Text);
-                    siteManager.UpdateSitePortConfigFile(_site, newPort);
+                    App.siteManager.UpdateSitePortConfigFile(_site, newPort);
                     _site.SitePort = newPort;
                 }
 
                 if (sitePropertiesChanged)
                 {
-                    siteManager.UpdateSite(_site);
-                    siteManager.Save();
+                    App.siteManager.UpdateSite(_site);
+                    App.siteManager.Save();
+                    OnSitesUpdated(new EventArgs());
                 }
             }
             else
@@ -121,7 +132,6 @@ namespace NodeJsSiteManager.Views
             {
                 this.hyperlinkSite.Visibility = Visibility.Visible;
                 SetStatusSiteIndicators("start");
-
             }
             else
             {
@@ -237,9 +247,9 @@ namespace NodeJsSiteManager.Views
             else
                 this.extensionsManager.InstallExtension(extension.ExtensionKey);
 
-            var siteManager = new NodeJsSiteManager.Modules.SiteManager();
-            siteManager.UpdateSite(_site);
-            siteManager.Save();
+            
+            App.siteManager.UpdateSite(_site);
+            App.siteManager.Save();
 
             LoadExtensions();
         }

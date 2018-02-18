@@ -62,7 +62,6 @@ namespace NodeJsSiteManager.Views
 
         private void btnStartStop_Click(object sender, RoutedEventArgs e)
         {
-            var siteManager = new NodeJsSiteManager.Modules.SiteManager();
             var btn = (Button)sender;
             var siteInfo = (dynamic)btn.DataContext;
             var site = App.siteManager.SiteCollection.SingleOrDefault(x => x.SiteId == siteInfo.Id);
@@ -72,9 +71,9 @@ namespace NodeJsSiteManager.Views
             try
             {
                 if (siteInfo.IsRunning)
-                    siteManager.StopWebSite(site);
+                    App.siteManager.StopWebSite(site);
                 else
-                    siteManager.StartWebSite(site);
+                    App.siteManager.StartWebSite(site);
 
                 System.Threading.Thread.Sleep(2100);
 

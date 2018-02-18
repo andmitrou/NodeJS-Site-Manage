@@ -1,0 +1,51 @@
+﻿<Page x:Class="NodeJsSiteManager.Views.BackUpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NodeJsSiteManager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="BackUpPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!--<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" x:Name="hyperlinkClose" FontSize="20"><Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="White" RequestNavigate="hyperlinkClose_RequestNavigate"><Run Text="X Close"/></Hyperlink></TextBlock>-->
+
+        <Label Grid.Row="0" Grid.Column="0" Foreground="White" Height="55" FontSize="20" Width="290" VerticalAlignment="Top" HorizontalAlignment="Left">Back Up Sites Panel</Label>
+        <ListView Grid.Row="1" Grid.Column="0" Background="Black" x:Name="SitesStatusListBox">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Width="130" Header="Select for Back Up" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Name="bcpChk"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="130" Header="Site" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Path=SiteName}" Foreground="White"></Label>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Page>

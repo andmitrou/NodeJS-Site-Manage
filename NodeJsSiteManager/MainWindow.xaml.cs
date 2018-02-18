@@ -47,8 +47,7 @@ namespace NodeJsSiteManager
 
         public void SitesUpdated(object sender, EventArgs args)
         {
-            RefreshTreeView();
-            ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
+            RefreshTreeView();           
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -62,6 +61,7 @@ namespace NodeJsSiteManager
         {
             var item = (Site)this.SitesTree.SelectedItem;
             var editPage = new EditSitePage(item);
+            editPage.SitesUpdated += SitesUpdated;
             this.NavigationFrame.Navigate(editPage);
         }
 

@@ -106,6 +106,8 @@ namespace NodeJsSiteManager.Views
 
                 App.siteManager.Save();
 
+                ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
+
                 OnSitesUpdated(new EventArgs());
             }
             catch (Exception ex)

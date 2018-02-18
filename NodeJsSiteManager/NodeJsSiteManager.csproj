@@ -72,10 +72,14 @@
     <Compile Include="Models\ExecutionCommand.cs" />
     <Compile Include="Models\NodeExtension.cs" />
     <Compile Include="Models\Site.cs" />
+    <Compile Include="Modules\BackUpManager.cs" />
     <Compile Include="Modules\ExtensionsManager.cs" />
     <Compile Include="Modules\SiteManager.cs" />
     <Compile Include="Networking\Utils.cs" />
     <Compile Include="ViewModels\ExtensionItemTemplate.cs" />
+    <Compile Include="Views\BackUpPage.xaml.cs">
+      <DependentUpon>BackUpPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateSitePage.xaml.cs">
       <DependentUpon>CreateSitePage.xaml</DependentUpon>
     </Compile>
@@ -101,6 +105,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PagesStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BackUpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
