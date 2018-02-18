@@ -101,5 +101,16 @@ namespace NodeJsSiteManager
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MenuItemsSitesStatus_Click(object sender, RoutedEventArgs e)
+        {
+            var siteStatusesPage = new SitesRunningStatusPage();
+            this.NavigationFrame.Navigate(siteStatusesPage);
+        }
     }
 }

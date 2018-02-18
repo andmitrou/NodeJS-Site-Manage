@@ -9,13 +9,16 @@
     <Grid>
         <DockPanel LastChildFill="True">
             <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Open"/>
-                    <MenuItem Header="_Close"/>
-                    <MenuItem Header="_Save"/>
+                <MenuItem Header="_File"  Background="Black"  Foreground="White">
+                    <MenuItem Header="Exit"  Background="Black" Click="MenuItemExit_Click"/>
                 </MenuItem>
-                <MenuItem Header="Create Site" Click="MenuItem_Click">
-                    
+                <MenuItem Header="Sites Management" Foreground="White">
+                    <MenuItem Header="Create New Site..." Foreground="White" Background="Black" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="Sites Status"  Foreground="White" Background="Black" Click="MenuItemsSitesStatus_Click"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Back Up/Restore" Foreground="White">
+                    <MenuItem Header="Back Up Site" Foreground="White" Background="Black"></MenuItem>
+                    <MenuItem Header="Restore Site"  Foreground="White" Background="Black"></MenuItem>
                 </MenuItem>
             </Menu>
             <StatusBar DockPanel.Dock="Bottom" Height="15" Background="Black">
@@ -28,7 +31,7 @@
                         <MenuItem Header="Delete Site" Click="ctxDelete_Click"></MenuItem>
                     </ContextMenu>
                 </TreeView.Resources>
-                <TreeViewItem Foreground="White" Header="Sites" ItemsSource="{Binding}" ContextMenu="{StaticResource tvOptions}">
+                <TreeViewItem Foreground="White" Header="Sites (localhost)" ItemsSource="{Binding}" ContextMenu="{StaticResource tvOptions}">
                     <TreeViewItem.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Foreground="White" Text="{Binding SiteName}"></TextBlock>
