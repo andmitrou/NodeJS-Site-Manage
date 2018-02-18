@@ -48,6 +48,7 @@ namespace NodeJsSiteManager
         public void SitesUpdated(object sender, EventArgs args)
         {
             RefreshTreeView();
+            ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -75,22 +76,30 @@ namespace NodeJsSiteManager
 
         private void ctxDelete_Click(object sender, RoutedEventArgs e)
         {
-            bool allowPhysicalDelete = false;
+            try
+            {
+                bool allowPhysicalDelete = false;
 
-            var selectedSite = (Site)this.SitesTree.SelectedItem;
+                var selectedSite = (Site)this.SitesTree.SelectedItem;
 
-            SiteManager siteManager = new SiteManager();
+                SiteManager siteManager = new SiteManager();
 
-            var msgResult = MessageBox.Show("Do you want to delete the files?", "", MessageBoxButton.YesNo);
+                var msgResult = MessageBox.Show("Do you want to delete the files?", "", MessageBoxButton.YesNo);
 
-            if (msgResult.ToString() == "Yes")
-                allowPhysicalDelete = true;
+                if (msgResult.ToString() == "Yes")
+                    allowPhysicalDelete = true;
 
-            siteManager.RemoveSite(selectedSite, allowPhysicalDelete);
+                siteManager.RemoveSite(selectedSite, allowPhysicalDelete);
 
-            siteManager.Save();
-            App.siteManager.SiteCollection.Remove(selectedSite);
-            RefreshTreeView();
+                siteManager.Save();
+                App.siteManager.SiteCollection.Remove(selectedSite);
+                RefreshTreeView();
+                ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

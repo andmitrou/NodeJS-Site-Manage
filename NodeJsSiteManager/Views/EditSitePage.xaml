@@ -51,19 +51,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
     </Page.Resources>
     <Grid Margin="0,0,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75" >
+
+            </RowDefinition>
+            <RowDefinition Height="*">
+
+            </RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-          
         </Grid.ColumnDefinitions>
-   
-        <StackPanel Grid.Column="0" Grid.Row="0">
-         
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" x:Name="hyperlinkClose" FontSize="20"><Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="White" RequestNavigate="hyperlinkClose_RequestNavigate"><Run Text="X Close"/></Hyperlink></TextBlock>
+
+        <Label Grid.Row="0" Grid.Column="0" Foreground="White" Height="55" FontSize="20" Width="290" VerticalAlignment="Top" HorizontalAlignment="Left">Manage Site Panel</Label>
+        <Separator Grid.Row="0"  Grid.ColumnSpan="2"  />
+
+        <StackPanel Grid.Column="0" Grid.Row="1">
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                <Label Foreground="White" Height="35" FontSize="20">Edit Site Properties Panel</Label>
+                <Label Foreground="White" Width="170" FontWeight="Bold" FontStyle="Italic">General Properties</Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
                 <Label Foreground="White" Width="100">SiteName</Label>
@@ -75,23 +84,16 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <Label Foreground="White" Width="100">Folder Location</Label>
-                <TextBox Name="txtWebLocation" Width="180"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                <Label Foreground="White" Width="100">Web Server</Label>
-                <ComboBox Name="cmbWebServer" Width="180">
-                    <ComboBoxItem Name="xpress" Selector.IsSelected="True">Express</ComboBoxItem>
-                </ComboBox>
+                <Label Foreground="White" Name="txtWebLocation" Width="314" IsEnabled="False"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,20,0,0">
-                <Button Name="btnCreateSite" Width="120" Height="30" Margin="10,0,0,0" Click="btnSaveChanges_Click">Save</Button>
-                <Button Name="btnCandelCreateSite" Width="120"  Height="30" Margin="10,0,0,0" Click="btnCancel_Click">Cancel</Button>
+                <Button Name="btnCreateSite" Width="120" Height="30" Margin="10,0,0,0" Click="btnSaveChanges_Click">Update</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
                 <Label Foreground="Red" Name="ErrorMessage" HorizontalAlignment="Stretch" Visibility="Hidden" ></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,20,0,0">
-                <Label Content="Extensions" Foreground="White" FontSize="14"></Label>
+                <Label Content="Extensions" Foreground="White" FontSize="14" FontWeight="Bold" FontStyle="Italic"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
                 <ListView Height="340" Width="300" Background="Black" x:Name="ExtensionsListBox">
@@ -123,26 +125,23 @@
                 </ListView>
             </StackPanel>
         </StackPanel>
-        <StackPanel  Grid.Row="0" Grid.ColumnSpan="2" Margin="364,0,0,0" >
+        <StackPanel Grid.ColumnSpan="2" Margin="364,73,0,0" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                <Label Foreground="White" HorizontalAlignment="Stretch">WebSite</Label>
-                <Label Foreground="White" HorizontalAlignment="Stretch">Status:</Label>
-                <Label Name="websiteStatusLbl" Foreground="Gray" HorizontalAlignment="Stretch">Finding Status..</Label>
+                <Label Foreground="White" Width="170" FontStyle="Italic" FontWeight="Bold">Site Status</Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                <Button Name="btnStartSite" Width="120" Height="30" Margin="10,0,0,0" Click="btnStartWebSite_Click">Start</Button>
-                <Button Name="btnStopSite" Width="120"  Height="30" Margin="10,0,0,0" Click="btnStopWebSite_Click">Stop</Button>
+                <Label Foreground="White" HorizontalAlignment="Stretch" Content="WebSite"/>
+                <Label Foreground="White" HorizontalAlignment="Stretch" Content="Status:"/>
+                <Label x:Name="websiteStatusLbl" Foreground="Gray" HorizontalAlignment="Stretch" Content="Finding Status.."/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
-                <Button ></Button>
-                <TextBlock Visibility="Hidden" x:Name="hyperlinkSite">           
-                    <Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="Blue" RequestNavigate="hyperlinkSite_RequestNavigate">
-                       Open Site
-                    </Hyperlink>        
-                </TextBlock>
+                <Button x:Name="btnStartSite" Width="120" Height="30" Margin="10,0,0,0" Click="btnStartWebSite_Click" Content="Start"/>
+                <Button x:Name="btnStopSite" Width="120"  Height="30" Margin="10,0,0,0" Click="btnStopWebSite_Click" Content="Stop"/>
             </StackPanel>
-            
-      
+            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                <Button />
+                <TextBlock Visibility="Hidden" x:Name="hyperlinkSite"><Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="Blue" RequestNavigate="hyperlinkSite_RequestNavigate"><Run Text="Open Site"/></Hyperlink></TextBlock>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

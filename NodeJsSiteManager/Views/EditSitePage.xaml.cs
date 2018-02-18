@@ -31,9 +31,7 @@ namespace NodeJsSiteManager.Views
     {
         private bool SiteIsRunning = false;
         private Site _site;
-        private CommandLine.CommandLineManager cmdManager;
         private ExtensionsManager extensionsManager;
-        private  CommandLine.CommandParser parser;
         public EditSitePage()
         {
             InitializeComponent();
@@ -42,13 +40,13 @@ namespace NodeJsSiteManager.Views
         {
             this._site = site;
             this.txtSiteName.Text = _site.SiteName;
-            this.txtWebLocation.Text = _site.SiteLocation;
+            this.txtWebLocation.Content = _site.SiteLocation;
             this.txtPort.Text = _site.SitePort.ToString();
             extensionsManager = new ExtensionsManager(_site);
         }
 
         private void LoadExtensions()
-        {          
+        {
             var extensions = extensionsManager.GetAvailableExtensions();
 
             List<ExtensionItemTemplate> extensionTemplates = new List<ExtensionItemTemplate>();
@@ -81,7 +79,38 @@ namespace NodeJsSiteManager.Views
 
         private void btnSaveChanges_Click(object sender, RoutedEventArgs e)
         {
+            var siteManager = new NodeJsSiteManager.Modules.SiteManager();
 
+            bool sitePropertiesChanged = false;
+
+            if (!this.SiteIsRunning)
+            {
+                if (this._site.SiteName != this.txtSiteName.Text)
+                {
+                    sitePropertiesChanged = true;
+                    siteManager.RenameSiteDirectory(System.IO.Path.Combine(_site.SiteLocation, _site.SiteName), 
+                                                                            this.txtSiteName.Text);
+                    _site.SiteName = this.txtSiteName.Text;
+                }
+
+                if (this._site.SitePort.ToString() != this.txtPort.Text)
+                {
+                    sitePropertiesChanged = true;
+                    int newPort = Int32.Parse(this.txtPort.Text);
+                    siteManager.UpdateSitePortConfigFile(_site, newPort);
+                    _site.SitePort = newPort;
+                }
+
+                if (sitePropertiesChanged)
+                {
+                    siteManager.UpdateSite(_site);
+                    siteManager.Save();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You need to stop the Site first!");
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -132,7 +161,7 @@ namespace NodeJsSiteManager.Views
         {
             var workingDir = System.IO.Path.Combine(this._site.SiteLocation, _site.SiteName);
             var npmExecutor = new NSMCommandExecutor(workingDir);
-            var rst = npmExecutor.ExecuteCommand(commandName, commandParameters,exitImmediately);
+            var rst = npmExecutor.ExecuteCommand(commandName, commandParameters, exitImmediately);
 
             return rst;
         }
@@ -142,6 +171,7 @@ namespace NodeJsSiteManager.Views
             var result = ExecuteCommand("NodeStartWebSite", new string[] { "server.js" }, true);
             SetStatusSiteIndicators("start");
             this.hyperlinkSite.Visibility = Visibility.Visible;
+            this.SiteIsRunning = true;
         }
 
         private void btnStopWebSite_Click(object sender, RoutedEventArgs e)
@@ -173,8 +203,10 @@ namespace NodeJsSiteManager.Views
             aProcess.Kill();
             SetStatusSiteIndicators("stop");
             this.hyperlinkSite.Visibility = Visibility.Hidden;
+            this.SiteIsRunning = false;
+
         }
-       
+
 
         public void OpenSiteOnBrowser()
         {
@@ -200,8 +232,8 @@ namespace NodeJsSiteManager.Views
             var btn = (Button)sender;
             var extension = (ExtensionItemTemplate)btn.DataContext;
 
-            if (extension.IsActive)           
-                this.extensionsManager.UnistallExtension(extension.ExtensionKey);          
+            if (extension.IsActive)
+                this.extensionsManager.UnistallExtension(extension.ExtensionKey);
             else
                 this.extensionsManager.InstallExtension(extension.ExtensionKey);
 
@@ -218,9 +250,10 @@ namespace NodeJsSiteManager.Views
             e.Handled = true;
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void hyperlinkClose_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
+            e.Handled = true;
         }
     }
 }

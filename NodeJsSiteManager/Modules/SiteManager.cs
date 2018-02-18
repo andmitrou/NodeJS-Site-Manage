@@ -33,7 +33,7 @@ namespace NodeJsSiteManager.Modules
         {
             if (this.SiteCollection == null) return false;
 
-            var count = this.SiteCollection.Count(x => x.SiteName == site.SiteName);
+            var count = this.SiteCollection.Count(x => x.SiteId == site.SiteId);
             return count > 0;
         }
 
@@ -52,7 +52,12 @@ namespace NodeJsSiteManager.Modules
                 throw;
             }
         }
+        public void RenameSiteDirectory(string sourceDir, string newName)
+        {
+            var newDirectoryPath = Path.Combine(sourceDir.Substring(0, sourceDir.LastIndexOf("\\")), newName);
+            Directory.Move(sourceDir, newDirectoryPath);
 
+        }
 
         public void UpdateSite(Site site)
         {
@@ -60,7 +65,7 @@ namespace NodeJsSiteManager.Modules
             {
                 for (var i = 0; i < this.SiteCollection.Count; i++)
                 {
-                    if (this.SiteCollection[i].SiteName == site.SiteName)
+                    if (this.SiteCollection[i].SiteId == site.SiteId)
                     {
                         this.SiteCollection[i] = site;
                         return;
@@ -75,27 +80,45 @@ namespace NodeJsSiteManager.Modules
 
         public void RemoveSite(Site site, bool deletePhysicalFiles = false)
         {
-            var list = this.SiteCollection.ToList();
-            var itemToRemove = list.FirstOrDefault(x => x.SiteName == site.SiteName);
-            if (itemToRemove != null)
+            try
             {
-                list.Remove(itemToRemove);
-                this.SiteCollection = list;
+                var list = this.SiteCollection.ToList();
+                var itemToRemove = list.FirstOrDefault(x => x.SiteId == site.SiteId);
+                if (itemToRemove != null)
+                {
+                    list.Remove(itemToRemove);
+                    this.SiteCollection = list;
+                }
+
+                if (deletePhysicalFiles)
+                {
+                    var directory = Path.Combine(site.SiteLocation, site.SiteName);
+
+                    if (Directory.Exists(directory))
+                        Directory.Delete(directory, true);
+                }
+            }
+            catch
+            {
+                throw;
             }
 
-            if (deletePhysicalFiles)
-            {
-                var directory = Path.Combine(site.SiteLocation, site.SiteName);
-
-                if (Directory.Exists(directory))
-                    Directory.Delete(directory, true);
-            }
         }
-        
+
         public void Save()
         {
             var serialisedSites = Newtonsoft.Json.JsonConvert.SerializeObject(this.SiteCollection);
             File.WriteAllText(this.sitesFilePath, serialisedSites);
+        }
+
+        internal void UpdateSitePortConfigFile(Site site, int newPort)
+        {
+            var moduleDir = System.IO.Path.Combine(site.SiteLocation,
+                                                     site.SiteName,
+                                                    "nsm-server-config");
+
+            System.IO.File.WriteAllText(System.IO.Path.Combine(moduleDir, "index.js"),
+                                           String.Format("module.exports.portNumber = {0}", newPort.ToString()));
         }
     }
 }

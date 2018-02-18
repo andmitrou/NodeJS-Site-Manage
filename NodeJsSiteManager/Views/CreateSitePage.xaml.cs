@@ -52,12 +52,9 @@ namespace NodeJsSiteManager.Views
 
                 CommandParser cmdParser = new CommandParser(Environment.CurrentDirectory + "\\commands.json");
 
-                
-
                 Dictionary<string, string[]> CommandsForExecution = new Dictionary<string, string[]>();
                 CommandsForExecution.Add("NPMInit", new string[] { });
-                CommandsForExecution.Add("NPMInstallPackage", new string[] { "--save express" });
-       
+                CommandsForExecution.Add("NPMInstallPackage", new string[] { "--save express" });       
                 CommandsForExecution.Add("CmdCreateDirectory", new string[] { "public" });
     
                 foreach (var pair in CommandsForExecution)
@@ -100,9 +97,11 @@ namespace NodeJsSiteManager.Views
 
                 App.siteManager.CreateSite(new Site
                 {
+                    SiteId = Guid.NewGuid().ToString(),
                     SiteName = this.txtSiteName.Text,
                     SiteLocation = txtWebLocation.Text,
-                    SitePort = Int32.Parse(txtPort.Text)
+                    SitePort = Int32.Parse(txtPort.Text),
+                    Extensions = new List<string>()
                 });
 
                 App.siteManager.Save();
