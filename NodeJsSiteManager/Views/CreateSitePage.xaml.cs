@@ -44,8 +44,7 @@ namespace NodeJsSiteManager.Views
 
                 if (String.IsNullOrEmpty(this.txtWebLocation.Text)) throw new Exception("Location must Not be empty");
 
-                if (String.IsNullOrEmpty(this.txtPort.Text) ||  
-                    Regex.IsMatch(this.txtPort.Text, @"\d") || 
+                if (String.IsNullOrEmpty(this.txtPort.Text) ||   
                     ((Int32.Parse(this.txtPort.Text) > 65535)))
                         throw new Exception("Port number is not valid it should be in range 0-65535");
 
@@ -79,10 +78,10 @@ namespace NodeJsSiteManager.Views
                 Directory.CreateDirectory(moduleDir);
 
                 var packConfigContent = @"{
-                    'name': 'nsm-server-config',
-                    'description':'Server Configuration NSM',
-                    'version': '1.0.0',
-                    'main': 'index.js'
+                    ""name"":""nsm-server-config"",
+                    ""description"":""Server Configuration NSM"",
+                    ""version"":""1.0.0"",
+                    ""main"":""index.js""
                  }";
 
                 System.IO.File.WriteAllText(System.IO.Path.Combine(moduleDir, "index.js"), 
