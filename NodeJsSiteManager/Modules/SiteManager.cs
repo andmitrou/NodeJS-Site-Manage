@@ -7,6 +7,8 @@ using System.Configuration;
 using System.IO;
 using NodeJsSiteManager.Models;
 using System.Windows;
+using NodeJsSiteManager.CommandLine;
+using System.Text.RegularExpressions;
 
 namespace NodeJsSiteManager.Modules
 {
@@ -110,6 +112,45 @@ namespace NodeJsSiteManager.Modules
             var serialisedSites = Newtonsoft.Json.JsonConvert.SerializeObject(this.SiteCollection);
             File.WriteAllText(this.sitesFilePath, serialisedSites);
         }
+
+        public void StartWebSite(Site site)
+        {
+            var workingDir = System.IO.Path.Combine(site.SiteLocation, site.SiteName);
+            var npmExecutor = new NSMCommandExecutor(workingDir);
+            var rst = npmExecutor.ExecuteCommand("NodeStartWebSite", new string[] { "server.js" }, true);            
+        }
+
+        public void StopWebSite(Site site)
+        {
+            string PID = "";
+            var workingDir = System.IO.Path.Combine(site.SiteLocation, site.SiteName);
+            var npmExecutor = new NSMCommandExecutor(workingDir);
+            var rst = npmExecutor.ExecuteCommand("CmdGetProcess", new string[] { });
+          
+
+            string[] rows = Regex.Split(rst, "\r\n");
+
+            foreach (string row in rows)
+            {
+                string[] tokens = Regex.Split(row, "\\s+");
+
+                if (tokens.Length > 4 && (tokens[1].Equals("UDP") || tokens[1].Equals("TCP")))
+                {
+                    string localAddress = Regex.Replace(tokens[2], @"\[(.*?)\]", "1.1.1.1");
+                    var protocol = localAddress.Contains("1.1.1.1") ? String.Format("{0}v6", tokens[1]) : String.Format("{0}v4", tokens[1]);
+                    var port_number = localAddress.Split(':')[1];
+                    if (port_number == site.SitePort.ToString())
+                    {
+                        PID = tokens[1] == "UDP" ? tokens[4] : tokens[5];
+                        break;
+                    }
+                }
+            }
+
+            var aProcess = System.Diagnostics.Process.GetProcessById(Int32.Parse(PID));
+            aProcess.Kill();
+        }
+
 
         internal void UpdateSitePortConfigFile(Site site, int newPort)
         {

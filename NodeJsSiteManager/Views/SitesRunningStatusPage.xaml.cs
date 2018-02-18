@@ -26,8 +26,9 @@ namespace NodeJsSiteManager.Views
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void LoadSitesStatus()
         {
+
             var siteInfoList = new List<dynamic>();
             var sites = App.siteManager.SiteCollection;
             foreach (var site in sites)
@@ -35,16 +36,22 @@ namespace NodeJsSiteManager.Views
                 var siteIsRunning = Utils.ServerIsListening("localhost", site.SitePort);
                 var siteInfo = new
                 {
+                    Id = site.SiteId,
                     SiteName = site.SiteName,
                     SitePort = site.SitePort,
                     IsRunning = siteIsRunning,
-                    Action = siteIsRunning ? "Stop" :"Start"
+                    Action = siteIsRunning ? "Stop" : "Start"
                 };
 
                 siteInfoList.Add(siteInfo);
 
             }
             SitesStatusListBox.ItemsSource = siteInfoList;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadSitesStatus();
         }
 
         private void hyperlinkClose_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -55,17 +62,28 @@ namespace NodeJsSiteManager.Views
 
         private void btnStartStop_Click(object sender, RoutedEventArgs e)
         {
+            var siteManager = new NodeJsSiteManager.Modules.SiteManager();
             var btn = (Button)sender;
             var siteInfo = (dynamic)btn.DataContext;
+            var site = App.siteManager.SiteCollection.SingleOrDefault(x => x.SiteId == siteInfo.Id);
 
-            if (siteInfo.IsRunning)
+            if (site == null) throw new NullReferenceException("Site not found");
+
+            try
             {
+                if (siteInfo.IsRunning)
+                    siteManager.StopWebSite(site);
+                else
+                    siteManager.StartWebSite(site);
 
+                System.Threading.Thread.Sleep(2100);
+
+                LoadSitesStatus();
             }
-            else
+            catch(Exception ex)
             {
-
-            }
+                MessageBox.Show(ex.Message);
+            }            
         }
     }
 }

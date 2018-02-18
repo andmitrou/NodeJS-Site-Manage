@@ -51,7 +51,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn>
+                        <GridViewColumn Header="Action">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button  Width="100" Content="{Binding Path=Action}" Click="btnStartStop_Click" />
