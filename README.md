@@ -10,5 +10,5 @@ Developed with WPF, C# and NodeJs.
 ## 2. Sites Running Status
 ![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/2.png)
 
-## 3. Central Screen
+## 3.Manage Site Panel
 ![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/3.png)
