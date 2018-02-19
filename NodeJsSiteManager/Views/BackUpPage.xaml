@@ -16,7 +16,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <!--<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" x:Name="hyperlinkClose" FontSize="20"><Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="White" RequestNavigate="hyperlinkClose_RequestNavigate"><Run Text="X Close"/></Hyperlink></TextBlock>-->
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" x:Name="hyperlinkClose" FontSize="20"><Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="White" RequestNavigate="hyperlinkClose_RequestNavigate"><Run Text="X Close"/></Hyperlink></TextBlock>
 
         <Label Grid.Row="0" Grid.Column="0" Foreground="White" Height="55" FontSize="20" Width="290" VerticalAlignment="Top" HorizontalAlignment="Left">Back Up Sites Panel</Label>
         <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">

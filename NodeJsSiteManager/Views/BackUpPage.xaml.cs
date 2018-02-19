@@ -38,7 +38,11 @@ namespace NodeJsSiteManager.Views
 
             var backUpManager = new BackUpManager();
 
-            List<BackUpSiteItemTemplate> siteForBackUpList = new List<BackUpSiteItemTemplate>();
+            if (String.IsNullOrEmpty(this.txtSelectLoc.Text))
+            {
+                MessageBox.Show("Please specify Locatiion");
+                return;
+            }
 
             foreach (var siteItem in this.SitesListBox.Items)
             {
@@ -90,6 +94,12 @@ namespace NodeJsSiteManager.Views
             }
 
             this.SitesListBox.ItemsSource = siteInfoList;
+        }
+
+        private void hyperlinkClose_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            ((MainWindow)System.Windows.Application.Current.MainWindow).NavigationFrame.Navigate(new Home());
+            e.Handled = true;
         }
     }
 
