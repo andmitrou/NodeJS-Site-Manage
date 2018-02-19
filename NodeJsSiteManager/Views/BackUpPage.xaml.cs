@@ -38,31 +38,25 @@ namespace NodeJsSiteManager.Views
 
             var backUpManager = new BackUpManager();
 
-            List<BackUpSiteItemTemplate> siteForBackUpList = new List<BackUpSiteItemTemplate>();         
+            List<BackUpSiteItemTemplate> siteForBackUpList = new List<BackUpSiteItemTemplate>();
 
             foreach (var siteItem in this.SitesListBox.Items)
             {
                 var item = (BackUpSiteItemTemplate)siteItem;
                 if (item.isChecked)
                 {
-                    siteForBackUpList.Add(item);
-                }
-            }
-
-            
-            foreach (var backUpItem in siteForBackUpList)
-            {
-                ResultMessage.Content += "Performing BackUp for site" + backUpItem.SiteName + Environment.NewLine;
-                try
-                {
-                    backUpManager.BackUpSite(backUpItem, this.txtSelectLoc.Text);
-                    ResultMessage.Content += String.Format("Site {0} successfully backed Up", 
-                                                            backUpItem.SiteName) + Environment.NewLine;
-                }
-                catch(Exception ex)
-                {
-                    ResultMessage.Content += String.Format("Site {0} back up falied. Error:{1}",
-                                                            backUpItem.SiteName, ex.Message) + Environment.NewLine;
+                    ResultMessage.Content += "Performing BackUp for site" + item.SiteName + Environment.NewLine;
+                    try
+                    {
+                        backUpManager.BackUpSite(item, this.txtSelectLoc.Text);
+                        ResultMessage.Content += String.Format("Site {0} successfully backed Up",
+                                                                item.SiteName) + Environment.NewLine;
+                    }
+                    catch (Exception ex)
+                    {
+                        ResultMessage.Content += String.Format("Site {0} back up falied. Error:{1}",
+                                                                item.SiteName, ex.Message) + Environment.NewLine;
+                    }
                 }
             }
         }
