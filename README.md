@@ -8,4 +8,4 @@ Developed with WPF, C# and NodeJs.
 ![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/1.png)
 
 ## 1. Central Screen
-![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/1.png)
+![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/2.png)
