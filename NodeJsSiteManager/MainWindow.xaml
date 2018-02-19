@@ -17,7 +17,7 @@
                     <MenuItem Header="Sites Status"  Foreground="White" Background="Black" Click="MenuItemsSitesStatus_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="Back Up/Restore" Foreground="White">
-                    <MenuItem Header="Back Up Site" Foreground="White" Background="Black"></MenuItem>
+                    <MenuItem Header="Back Up Site" Foreground="White" Background="Black" Click="MenuItemBackUpSite_Click"></MenuItem>
                     <MenuItem Header="Restore Site"  Foreground="White" Background="Black"></MenuItem>
                 </MenuItem>
             </Menu>

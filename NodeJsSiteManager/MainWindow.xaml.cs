@@ -112,5 +112,11 @@ namespace NodeJsSiteManager
             var siteStatusesPage = new SitesRunningStatusPage();
             this.NavigationFrame.Navigate(siteStatusesPage);
         }
+
+        private void MenuItemBackUpSite_Click(object sender, RoutedEventArgs e)
+        {
+            var bcpSite = new BackUpPage();
+            this.NavigationFrame.Navigate(bcpSite);
+        }
     }
 }

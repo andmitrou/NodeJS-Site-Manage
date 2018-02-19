@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:NodeJsSiteManager.Views"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="BackUpPage">
+      Title="BackUpPage" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,33 +19,51 @@
         <!--<TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" x:Name="hyperlinkClose" FontSize="20"><Hyperlink NavigateUri="http://www.google.gr" TextDecorations="{x:Null}" Foreground="White" RequestNavigate="hyperlinkClose_RequestNavigate"><Run Text="X Close"/></Hyperlink></TextBlock>-->
 
         <Label Grid.Row="0" Grid.Column="0" Foreground="White" Height="55" FontSize="20" Width="290" VerticalAlignment="Top" HorizontalAlignment="Left">Back Up Sites Panel</Label>
-        <ListView Grid.Row="1" Grid.Column="0" Background="Black" x:Name="SitesStatusListBox">
-            <ListView.Resources>
-                <Style TargetType="GridViewColumnHeader">
-                    <Setter Property="Background" Value="Black" />
-                    <Setter Property="Foreground" Value="White" />
-                </Style>
-            </ListView.Resources>
-            <ListView.View>
-                <GridView>
-                    <GridView.Columns>
-                        <GridViewColumn Width="130" Header="Select for Back Up" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox Name="bcpChk"></CheckBox>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Width="130" Header="Site" >
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label Content="{Binding Path=SiteName}" Foreground="White"></Label>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView.Columns>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+            <ListView  Background="Black" x:Name="SitesListBox">
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Background" Value="Black" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                </ListView.Resources>
+
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                            <CheckBox Name="bcpChk" IsChecked="{Binding isChecked}"></CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="230" Header="Site" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding SiteName}" Foreground="White"></Label>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal" Margin="0 10 0 0">
+                <TextBox Name ="txtSelectLoc" Height="30" Width="260" HorizontalAlignment="Left"></TextBox>
+                <Button Name="selectLocBtn" Height="30" HorizontalAlignment="Left" Click="selectLocBtn_Click">Select Location</Button>
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal" Margin="0 10 0 0">
+                <Button Name ="BackUpBtn" Height="30" HorizontalAlignment="Left" Click="BackUpBtn_Click">Back Up Sites</Button>
+            </StackPanel>
+            <StackPanel  Orientation="Horizontal" Margin="0 10 0 0">
+                <Label Name ="ResultMessage"  HorizontalAlignment="Left" Foreground="White"></Label>
+            </StackPanel>
+        </StackPanel>
+        
+      
     </Grid>
 </Page>

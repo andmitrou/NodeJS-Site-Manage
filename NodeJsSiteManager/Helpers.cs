@@ -23,11 +23,11 @@ namespace NodeJsSiteManager
                 Directory.CreateDirectory(targetDir);
 
             foreach (string dirPath in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
-                Directory.CreateDirectory(dirPath.Replace(sourceDir, targetDir));
+                Directory.CreateDirectory(dirPath.Replace(Directory.GetParent(sourceDir).FullName, targetDir));
 
             
             foreach (string newPath in Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories))
-                File.Copy(newPath, newPath.Replace(sourceDir, targetDir), true);
+                File.Copy(newPath, newPath.Replace(Directory.GetParent(sourceDir).FullName, targetDir), true);
         }
 
     }
