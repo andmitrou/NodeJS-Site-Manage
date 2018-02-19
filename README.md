@@ -3,7 +3,8 @@ NodeJs Site Manager
 
 A desktop management app for managing NodeJs sites using Express server.<br/>
 You can Create a new Site, Manage Existing Site, Manage Running instances of sites, Back up.
-Developed with WPF, C# and NodeJs.
+<br/>
+Developed with <b>WPF</b>, <b>C#</b> and </b>NodeJs</b>.
 
 ## 1. Central Screen
 ![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/1.png)
