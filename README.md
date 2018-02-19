@@ -12,3 +12,7 @@ Developed with WPF, C# and NodeJs.
 
 ## 3.Manage Site Panel
 ![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/3.png)
+
+
+## 4.Manage Site Panel
+![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/4.png)
