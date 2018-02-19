@@ -6,3 +6,6 @@ Developed with WPF, C# and NodeJs.
 
 ## 1. Central Screen
 ![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/1.png)
+
+## 1. Central Screen
+![alt text](https://github.com/andmitrou/NodeJS-Site-Manage/blob/master/NodeJsSiteManager/ScreenShots/1.png)
