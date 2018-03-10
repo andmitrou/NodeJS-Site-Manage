@@ -15,7 +15,12 @@ namespace NodeJsSiteManager
             var result = JsonConvert.DeserializeObject<List<T>>(contents);
             return result;
         }
-
+          
+        public static void MoveFile(string sourcePath,string destinationPath)
+        {
+            File.Copy(sourcePath, destinationPath);
+            File.Delete(sourcePath);
+        }
 
         public static void CopyDirectory(string sourceDir, string targetDir)
         {
